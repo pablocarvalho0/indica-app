@@ -72,6 +72,16 @@ Se a tarefa depende de uma dessas, faça tudo o que não depende e pergunte no p
 
 **Higiene.** Antes de qualquer commit, `git status`. Fora do repo: `node_modules/`, `.env*`, `dist/`, `.next/`, `*.log`, `.claude/settings.local.json`.
 
+## Retomar o trabalho no dia seguinte (frentes)
+
+Trabalho longo aqui é fatiado em **frentes** paralelas, e cada uma volta do ponto onde parou via checkpoint do gstack (`/context-save` → `/context-restore`).
+
+O ciclo: ao fechar uma sessão, rodar `/context-save`. Para configurar o que retomar, usar a skill **`/frentes`** — ela lê os checkpoints, escreve `scripts-uteis/frentes.conf` e regenera `.vscode/tasks.json`. No dia seguinte, `Ctrl+Shift+B` no VS Code abre um terminal por frente, cada um com o contexto já restaurado. Sem VS Code: `scripts-uteis/retomar-frentes.sh --todas`.
+
+Dois limites antes de mexer: **`retomar-frentes.sh` e `.vscode/tasks.json` não se editam à mão** — o primeiro é lógica (mudança nele é tarefa de código, não configuração), o segundo é gerado e qualquer edição manual some no próximo `--gerar-tasks`. O `frentes.conf` fica fora do git porque guarda caminho absoluto da máquina; versionado é o `frentes.conf.example`, na mesma lógica do `.env`/`.env.example`.
+
+A skill `/frentes` tem o resto, incluindo por que a identidade deste projeto no gstack é frágil: um `package.json` criado por engano na pasta-mãe `study-code` faz os checkpoints do repo caírem num balde compartilhado com os outros projetos de estudo.
+
 ## Como se comunicar aqui
 
 Direto e sem enfeite. Prosa curta, bullet só quando a informação é genuinamente listável. Se discordar de um pedido por um motivo técnico ou de escopo, **diga em uma ou duas frases e siga** — capacidade crítica é bem-vinda, sermão não. Reporte o que aconteceu de verdade: se um teste falhou, mostre a saída; se pulou uma etapa, diga qual.

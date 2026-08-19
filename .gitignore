@@ -66,7 +66,15 @@ desktop.ini
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+# .vscode/tasks.json fica de fora de propósito: é GERADO por
+# scripts-uteis/retomar-frentes.sh --gerar-tasks a partir do frentes.conf,
+# e os rótulos das tasks vêm dos checkpoints locais da máquina.
 
 # Ferramentas de IA — configuração local, não compartilhada
 .claude/settings.local.json
 .gstack/
+
+# Frentes de trabalho — quais checkpoints retomar amanhã. Fica fora do repo
+# porque guarda caminho absoluto desta máquina; o que vai versionado é o
+# template scripts-uteis/frentes.conf.example. Mesma lógica do .env/.env.example.
+scripts-uteis/frentes.conf
