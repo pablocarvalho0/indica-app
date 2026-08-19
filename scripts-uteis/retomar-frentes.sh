@@ -15,6 +15,10 @@
 #   ./retomar-frentes.sh --descobrir [d] checkpoints recentes do repo e worktrees
 #   ./retomar-frentes.sh --gerar-tasks   reescreve .vscode/tasks.json
 #
+# Ambiente (opcional):
+#   FRENTES_CONF      outro arquivo de frentes, no lugar do frentes.conf ao lado
+#   GSTACK_SLUG_BIN   caminho do gstack-slug, se o gstack não estiver no padrão
+#
 # Para configurar as frentes conversando, use a skill /frentes — ela edita o
 # frentes.conf e chama o --gerar-tasks por você.
 #
@@ -33,7 +37,22 @@ AQUI="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONF="${FRENTES_CONF:-$AQUI/frentes.conf}"
 RAIZ="$(dirname "$AQUI")"
 TASKS_JSON="$RAIZ/.vscode/tasks.json"
-GSTACK_SLUG_BIN="$HOME/.claude/skills/gstack/bin/gstack-slug"
+# Sobrescrevível por ambiente, como o CONF acima: o caminho padrão é onde o
+# gstack se instala, mas cravá-lo sem saída seria trocar um caminho de máquina
+# por outro — justamente o que a genericização deste script foi corrigir.
+GSTACK_SLUG_BIN="${GSTACK_SLUG_BIN:-$HOME/.claude/skills/gstack/bin/gstack-slug}"
+
+# ── Pré-requisito ────────────────────────────────────────────────────────────
+
+# Sem o gstack-slug nenhuma frente resolve, e o sintoma sem esta checagem seria
+# "sem checkpoint" em TODAS elas — erro que manda procurar no lugar errado.
+exigir_gstack() {
+  [ -x "$GSTACK_SLUG_BIN" ] && return 0
+  echo "gstack-slug não encontrado (ou sem permissão de execução) em:" >&2
+  echo "  $GSTACK_SLUG_BIN" >&2
+  echo "Instale o gstack, ou aponte GSTACK_SLUG_BIN para o binário." >&2
+  exit 1
+}
 
 # ── Leitura da config ────────────────────────────────────────────────────────
 
@@ -42,6 +61,7 @@ GSTACK_SLUG_BIN="$HOME/.claude/skills/gstack/bin/gstack-slug"
 DIRS=()
 PINS=()
 ler_conf() {
+  exigir_gstack
   [ -f "$CONF" ] || { echo "Config não encontrada: $CONF" >&2; exit 1; }
   local linha dir pin
   while IFS= read -r linha || [ -n "$linha" ]; do
@@ -200,6 +220,7 @@ checar() {
 # frentes.conf.
 # Uso: --descobrir [dias]   (padrão 3)
 descobrir() {
+  exigir_gstack
   local dias="${1:-3}" dir slug branch corte pai base
   corte="$(date -d "$dias days ago" +%Y%m%d 2>/dev/null || echo 00000000)"
   pai="$(dirname "$RAIZ")"

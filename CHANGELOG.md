@@ -32,8 +32,9 @@ dia do release o contexto da mudança já evaporou.
   trabalho paralelas a partir dos checkpoints do gstack, com um terminal por
   frente no `Ctrl+Shift+B` do VS Code. O `frentes.conf` fica fora do git por
   guardar caminho absoluto da máquina — versionado é o `frentes.conf.example`.
-  Os comandos da skill derivam a raiz via `git rev-parse --show-toplevel`, então
-  funcionam em qualquer clone, não só na máquina onde foram escritos.
+  Os comandos da skill derivam a raiz via `git rev-parse --show-toplevel` e o
+  script aceita `GSTACK_SLUG_BIN` e `FRENTES_CONF` por ambiente, então funcionam
+  em qualquer clone, não só na máquina onde foram escritos.
 
 ### Alterado
 

@@ -53,9 +53,10 @@ cd "$(git rev-parse --show-toplevel)/scripts-uteis"
 ./retomar-frentes.sh                  # o que já está configurado hoje
 ```
 
-O `--descobrir` varre o repo e os worktrees irmãos (`indica-app-*`) e devolve os
-diretórios candidatos com a branch atual de cada um, mais os checkpoints
-recentes com data, branch e título. Os outros projetos do `study-code`
+O `--descobrir` varre o repo e os worktrees irmãos — o padrão é
+`<pasta-do-repo>-*`, aqui `indica-app-*` — e devolve os diretórios candidatos
+com a branch atual de cada um, mais os checkpoints recentes com data, branch
+e título. Os outros projetos do `study-code`
 (`api-notas`, `painel-*`) **não** aparecem: cada um tem slug próprio e frentes
 próprias.
 
@@ -140,10 +141,10 @@ VS Code.
 ## Quando o pin é obrigatório (não é dívida)
 
 A regra "pin é dívida" vale enquanto o slug tiver **um** diretório. Ela
-**inverte** assim que nascer o primeiro worktree: `retomar-frentes.sh:77`
-resolve o "mais recente" com `sort -r | head -1` sobre o diretório de
-checkpoints do slug, então duas linhas sem pin no mesmo slug caem no **mesmo**
-arquivo e o Pablo ganha terminais idênticos.
+**inverte** assim que nascer o primeiro worktree: a função `checkpoint_de()` do
+`retomar-frentes.sh` resolve o "mais recente" com `sort -r | head -1` sobre o
+diretório de checkpoints do slug, então duas linhas sem pin no mesmo slug caem
+no **mesmo** arquivo e o Pablo ganha terminais idênticos.
 
 Nesse caso: pinar todas as frentes do slug, e assumir o reapontamento no
 fechamento do dia (acima). Criar pasta com outro nome não resolve — o slug sai
