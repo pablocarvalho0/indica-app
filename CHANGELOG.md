@@ -28,13 +28,18 @@ dia do release o contexto da mudança já evaporou.
 - `CHANGELOG.md`: registro de mudanças por release e do estado do projeto.
 - `.github/PULL_REQUEST_TEMPLATE.md`: checklist curto de documentação no PR.
 - `docs/spec-v0.md`: spec técnica da v0, antes fora do controle de versão.
-- `scripts-uteis/retomar-frentes.sh` e a skill `/frentes`: retomada de frentes de
-  trabalho paralelas a partir dos checkpoints do gstack, com um terminal por
-  frente no `Ctrl+Shift+B` do VS Code. O `frentes.conf` fica fora do git por
-  guardar caminho absoluto da máquina — versionado é o `frentes.conf.example`.
-  Os comandos da skill derivam a raiz via `git rev-parse --show-toplevel` e o
-  script aceita `GSTACK_SLUG_BIN` e `FRENTES_CONF` por ambiente, então funcionam
-  em qualquer clone, não só na máquina onde foram escritos.
+- Retomada de frentes de trabalho paralelas a partir dos checkpoints do gstack,
+  com um terminal por frente no `Ctrl+Shift+B` do VS Code. A ferramenta **não é
+  versionada aqui**: vem do plugin externo
+  [pablocarvalho0/claude-plugins](https://github.com/pablocarvalho0/claude-plugins).
+  Neste repo fica só o `.claude/frentes.conf`, fora do git por guardar caminho
+  absoluto da máquina.
+
+  A primeira versão nasceu como script dentro deste repo (`scripts-uteis/`).
+  Foi extraída porque uma ferramenta de workflow copiada por projeto vira um
+  fork silencioso por projeto — e isso aconteceu no mesmo dia, com duas cópias
+  divergindo em paralelo antes de convergirem por coincidência. O plugin tem uma
+  cópia só, versionada, com `--doctor` e instalação declarada.
 
 ### Alterado
 
@@ -43,8 +48,11 @@ dia do release o contexto da mudança já evaporou.
   commit de código, e num arquivo que agentes leem como autoridade isso é pior
   que ausência.
 - `CONTRIBUTING.md`: o fluxo de PR passou a incluir o passo de documentação.
-- `.gitignore`: exclui `scripts-uteis/frentes.conf` e documenta por que
-  `.vscode/tasks.json` fica de fora (é gerado, não escrito à mão).
+- `.gitignore`: ignora `frentes.conf` em qualquer profundidade — a regra fecha a
+  classe, não a instância, porque a config já migrou de diretório uma vez e com
+  caminho absoluto dentro ela estava a um `git add .` de entrar no repo. Também
+  documenta por que `.vscode/tasks.json` fica de fora (é gerado, não escrito à
+  mão).
 
 ---
 
