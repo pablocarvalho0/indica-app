@@ -21,7 +21,7 @@ Antes de escrever código, vale ler o [`docs/idea.md`](docs/idea.md) — ele exp
 
 **Se o Pablo te adicionou como colaborador, esqueça fork.** Você tem permissão de escrita: clona o repositório de verdade, cria a sua branch dentro dele e dá `push` direto. O único lugar onde você **não** escreve é a `main` — ela só recebe merge de PR aprovado.
 
-Esses 6 comandos são o ciclo inteiro. Dá pra colar e seguir:
+Esse é o ciclo inteiro. Dá pra colar e seguir:
 
 ```bash
 git clone https://github.com/pablocarvalho0/indica-app.git   # 0. uma vez só
@@ -31,9 +31,15 @@ git checkout main && git pull origin main                    # 1. partir da main
 git checkout -b feat/minha-ideia                             # 2. abrir a sua branch
 #    ... codar o que quiser ...
 git add . && git commit -m "feat: minha ideia"               # 3. commitar
-git push -u origin feat/minha-ideia                          # 4. subir a branch
-gh pr create --base main                                     # 5. abrir o PR e me chamar
+#    ... escrever a entrada em [Não lançado] no CHANGELOG.md ...
+git add CHANGELOG.md && git commit -m "docs: atualiza changelog"
+git push -u origin feat/minha-ideia                          # 5. subir a branch
+gh pr create --base main                                     # 6. abrir o PR e me chamar
 ```
+
+O passo 4 é o único que não é um comando decorado: é você escrevendo, em uma
+linha, o que mudou e por quê. É o que faz o release ser documentado sem ninguém
+ter que arqueologizar o histórico depois.
 
 Pronto — a partir daqui é só esperar o review. O passo a passo abaixo é o mesmo fluxo destrinchado, com as convenções de nome de branch, de mensagem de commit e o que fazer depois do merge.
 
@@ -105,7 +111,40 @@ git commit -m "feat: adiciona expiração automática por prazo" -m "Item vencid
 
 Commits pequenos são melhores que um commit gigante. E nada de `wip`: se a mensagem não sai com honestidade, a decisão ainda não está fechada — o que é ótimo motivo para abrir o PR como rascunho e conversar.
 
-### 4. Subir a branch
+### 4. Registrar a mudança no `CHANGELOG.md`
+
+Antes de subir a branch, abra o [`CHANGELOG.md`](CHANGELOG.md) e escreva a sua
+entrada na seção `[Não lançado]`, na categoria certa (`Adicionado`, `Alterado`,
+`Corrigido`, `Removido`, `Depreciado`, `Segurança`).
+
+Faça isso **agora**, não na hora do release. É a diferença entre descrever uma
+mudança que você acabou de fazer e reconstruir de memória uma mudança de três
+semanas atrás — e o que se perde primeiro nessa reconstrução é justamente o
+porquê, que é a parte que vale.
+
+Escreva para quem vai chegar depois e não viu o seu PR:
+
+```markdown
+### Adicionado
+
+- Filtro por área na listagem pública.
+
+### Alterado
+
+- Oportunidade com prazo vencido sai da lista sozinha. Antes dependia de
+  limpeza manual, e item vencido visível mata a confiança na curadoria.
+```
+
+Mudança sem efeito observável de fora — formatação, comentário, renomear
+variável interna — não precisa de entrada. Na dúvida, escreva: entrada sobrando
+é barata, entrada faltando some para sempre.
+
+Aproveite para conferir se o resto continua verdadeiro: variável de ambiente
+nova pede placeholder no `.env.example` **no mesmo commit**, e decisão de
+arquitetura nova pede um trecho no `docs/spec-v0.md`. O template do PR repete
+essa lista — ele é a rede de segurança, não o lugar de descobrir o que falta.
+
+### 5. Subir a branch
 
 ```bash
 git push -u origin feat/nome-curto-do-que-voce-vai-fazer
@@ -113,7 +152,7 @@ git push -u origin feat/nome-curto-do-que-voce-vai-fazer
 
 Da segunda vez em diante, na mesma branch, é só `git push`.
 
-### 5. Abrir o Pull Request para `main`
+### 6. Abrir o Pull Request para `main`
 
 Com o [GitHub CLI](https://cli.github.com):
 
@@ -129,7 +168,13 @@ gh pr create --base main --draft --title "feat: filtro por área" --body "Rascun
 
 Sem o `gh` instalado, o `git push` já imprime no terminal um link para abrir o PR no navegador. Funciona igual.
 
-### 6. Esperar a validação
+Um detalhe do `gh`: quando você passa `--body`, ele usa o seu texto e **ignora o
+template de PR** do repositório. Se quiser o checklist de documentação
+preenchido, omita o `--body` — o `gh` abre o editor já com o template — ou copie
+o conteúdo de `.github/PULL_REQUEST_TEMPLATE.md` na mão. Abrindo pelo navegador,
+o template vem sempre.
+
+### 7. Esperar a validação
 
 O Pablo revisa e uma de três coisas acontece: aprova e mergeia, pede ajuste, ou explica por que aquilo não entra agora (normalmente porque está listado como fora do escopo da v0). Para responder a um pedido de ajuste, é só commitar mais na **mesma branch** e dar `push` — o PR atualiza sozinho, não precisa abrir outro.
 
@@ -139,7 +184,7 @@ git commit -m "fix: ajusta o que foi apontado no review"
 git push
 ```
 
-### 7. Depois do merge: limpar
+### 8. Depois do merge: limpar
 
 ```bash
 git checkout main
