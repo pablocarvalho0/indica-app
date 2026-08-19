@@ -66,19 +66,18 @@ desktop.ini
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
-# .vscode/tasks.json fica de fora de propósito: é GERADO por
-# scripts-uteis/retomar-frentes.sh --gerar-tasks a partir do frentes.conf,
-# e os rótulos das tasks vêm dos checkpoints locais da máquina.
+# .vscode/tasks.json fica de fora de propósito: é GERADO pelo plugin frentes
+# (--gerar-tasks) a partir do .claude/frentes.conf, e os rótulos das tasks vêm
+# dos checkpoints locais da máquina.
 
 # Ferramentas de IA — configuração local, não compartilhada
 .claude/settings.local.json
 .gstack/
 
 # Frentes de trabalho — quais checkpoints retomar amanhã. Fica fora do repo
-# porque guarda caminho absoluto desta máquina; o que vai versionado é o
-# template frentes.conf.example. Mesma lógica do .env/.env.example.
+# porque guarda caminho absoluto desta máquina. A ferramenta em si não vive
+# aqui: vem do plugin frentes (ver CLAUDE.md), que traz o próprio template.
 #
-# Padrão sem barra: casa em QUALQUER profundidade. A regra antiga só cobria
-# scripts-uteis/, e uma cópia em .claude/frentes.conf passava batido — caminho
-# de máquina a um `git add .` de distância. Não afeta o .example.
+# Padrão sem barra: casa em QUALQUER profundidade. Cobre o .claude/frentes.conf
+# de hoje e qualquer cópia que apareça amanhã — fecha a classe, não a instância.
 frentes.conf

@@ -76,11 +76,13 @@ Se a tarefa depende de uma dessas, faça tudo o que não depende e pergunte no p
 
 Trabalho longo aqui é fatiado em **frentes** paralelas, e cada uma volta do ponto onde parou via checkpoint do gstack (`/context-save` → `/context-restore`).
 
-O ciclo: ao fechar uma sessão, rodar `/context-save`. Para configurar o que retomar, usar a skill **`/frentes`** — ela lê os checkpoints, escreve `scripts-uteis/frentes.conf` e regenera `.vscode/tasks.json`. No dia seguinte, `Ctrl+Shift+B` no VS Code abre um terminal por frente, cada um com o contexto já restaurado. Sem VS Code: `scripts-uteis/retomar-frentes.sh --todas`.
+**A ferramenta não vive neste repo.** Ela é um plugin externo, mantido em [pablocarvalho0/claude-plugins](https://github.com/pablocarvalho0/claude-plugins) — instalado uma vez por máquina e usado em qualquer projeto. Aqui dentro só existe a configuração local, `.claude/frentes.conf`, que fica fora do git por guardar caminho absoluto da máquina. Se a skill `/frentes` não aparecer na sessão, o plugin não está instalado; o README do repo tem as duas formas de instalar.
 
-Dois limites antes de mexer: **`retomar-frentes.sh` e `.vscode/tasks.json` não se editam à mão** — o primeiro é lógica (mudança nele é tarefa de código, não configuração), o segundo é gerado e qualquer edição manual some no próximo `--gerar-tasks`. O `frentes.conf` fica fora do git porque guarda caminho absoluto da máquina; versionado é o `frentes.conf.example`, na mesma lógica do `.env`/`.env.example`.
+O ciclo: ao fechar uma sessão, rodar `/context-save`. Para configurar o que retomar, chamar a skill `/frentes` — ela lê os checkpoints, escreve o `.claude/frentes.conf` e regenera o `.vscode/tasks.json`. No dia seguinte, `Ctrl+Shift+B` no VS Code abre um terminal por frente, cada um com o contexto já restaurado.
 
-A skill `/frentes` tem o resto, incluindo por que a identidade deste projeto no gstack é frágil: um `package.json` criado por engano na pasta-mãe `study-code` faz os checkpoints do repo caírem num balde compartilhado com os outros projetos de estudo.
+Um limite: **`.vscode/tasks.json` não se edita à mão.** É gerado, e qualquer edição manual some no próximo `--gerar-tasks`. Ele também guarda o caminho absoluto da instalação do plugin, então depois de atualizar o plugin é preciso regerar.
+
+Uma pegadinha vale saber, porque morde este repo em especial: o gstack resolve identidade de projeto pelo marcador de projeto **mais externo** da árvore de diretórios. Um `package.json` criado por engano na pasta-mãe `study-code` faz os checkpoints deste repo caírem num balde compartilhado com os outros projetos de estudo. O `--doctor` do plugin mostra qual slug foi resolvido, e o `CLAUDE.md` da `study-code` documenta o conserto.
 
 ## Como se comunicar aqui
 
