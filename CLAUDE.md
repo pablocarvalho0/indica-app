@@ -20,9 +20,11 @@ Variáveis de ambiente: copie `.env.example` para `.env` e preencha. Ao criar um
 
 ## Estado atual do repositório
 
-A stack está decidida, mas **o código ainda não existe** — hoje o repo tem só documentação (`docs/`), `.gitignore` e `.env.example`. Sem `package.json`, sem dependência instalada, sem comando de execução.
+**Este arquivo não afirma o que existe no repo — ele diz como descobrir.** Afirmação de estado envelhece no primeiro commit seguinte, e estado obsoleto aqui é pior que estado ausente: você o leria como autoridade, sem desconfiar.
 
-Consequência prática: **verifique o estado real antes de afirmar qualquer coisa.** Não sugira `npm run dev` antes de existir script, não documente rota ou comando que o código não suporta. `ls`, `cat package.json`, `git log` — olhe primeiro.
+Onde olhar: [`CHANGELOG.md`](CHANGELOG.md) conta o que mudou e em que release; o fonte confirma. `ls`, `cat package.json`, `git log` — olhe primeiro, sempre.
+
+Consequência prática: não sugira `npm run dev` antes de existir script, não documente rota, comando ou variável que o código não suporta.
 
 ---
 
@@ -64,7 +66,9 @@ Se a tarefa depende de uma dessas, faça tudo o que não depende e pergunte no p
 
 **Branches.** `feat/`, `fix/`, `docs/`, `chore/`, `refactor/`, `test/` + nome curto em kebab-case.
 
-**Documentação.** `docs/idea.md` é documento de produto, com raciocínio registrado. Se uma decisão mudar, **atualize o trecho e registre o motivo** — não reescreva por cima nem deixe o doc contradizendo o código. Nunca documente comando ou rota que o código não suporta: confira contra o fonte antes de escrever.
+**Documentação.** Cada doc tem um papel e não invade o do outro: `docs/idea.md` é produto e raciocínio, `docs/spec-v0.md` é a spec técnica com as decisões travadas, `CHANGELOG.md` é o que mudou e o estado atual, este arquivo é regra e convenção. Se uma decisão mudar, **atualize o trecho e registre o motivo** — não reescreva por cima nem deixe o doc contradizendo o código. Nunca documente comando ou rota que o código não suporta: confira contra o fonte antes de escrever.
+
+**Toda mudança alimenta o `CHANGELOG.md`, no PR — não na véspera do release.** Escreva na seção `[Não lançado]`, na categoria certa (`Adicionado`, `Alterado`, `Corrigido`, `Removido`, `Depreciado`, `Segurança`). Doc de release reconstruída depois é doc reconstruída de memória, e o que se perde primeiro é o porquê. Exceção honesta: mudança sem efeito observável de fora (formatação, comentário) não precisa de entrada.
 
 **Higiene.** Antes de qualquer commit, `git status`. Fora do repo: `node_modules/`, `.env*`, `dist/`, `.next/`, `*.log`, `.claude/settings.local.json`.
 
