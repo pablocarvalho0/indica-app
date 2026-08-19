@@ -76,5 +76,9 @@ desktop.ini
 
 # Frentes de trabalho — quais checkpoints retomar amanhã. Fica fora do repo
 # porque guarda caminho absoluto desta máquina; o que vai versionado é o
-# template scripts-uteis/frentes.conf.example. Mesma lógica do .env/.env.example.
-scripts-uteis/frentes.conf
+# template frentes.conf.example. Mesma lógica do .env/.env.example.
+#
+# Padrão sem barra: casa em QUALQUER profundidade. A regra antiga só cobria
+# scripts-uteis/, e uma cópia em .claude/frentes.conf passava batido — caminho
+# de máquina a um `git add .` de distância. Não afeta o .example.
+frentes.conf
