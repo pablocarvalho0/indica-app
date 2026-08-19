@@ -56,6 +56,14 @@ Confere se deu certo — o remote `origin` tem que apontar para o repositório d
 git remote -v
 ```
 
+E crie o seu arquivo de variáveis de ambiente a partir do exemplo versionado:
+
+```bash
+cp .env.example .env
+```
+
+O `.env` é ignorado pelo git e nunca deve ser commitado. O `.env.example` explica, variável por variável, onde achar cada valor. Se você criar uma variável nova, **adicione o placeholder no `.env.example` no mesmo commit** — senão o ambiente de todo mundo quebra menos o seu.
+
 ### 1. Antes de começar: pegar a `main` atualizada
 
 ```bash
@@ -86,6 +94,8 @@ git status                 # o que mudou
 git add .                  # ou: git add caminho/do/arquivo
 git commit -m "feat: adiciona filtro por área na listagem"
 ```
+
+O repositório é **todo em português**: commit, PR, issue, documentação, comentário de código e nome de branch. Sem misturar.
 
 Padrão de mensagem: **prefixo convencional + descrição curta em português**. Se a mudança merecer explicação, use o corpo do commit para dizer **o porquê**, não o quê (o diff já mostra o quê):
 

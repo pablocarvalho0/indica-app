@@ -1,0 +1,72 @@
+# Dependências
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Build e cache
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+.turbo/
+.swc/
+
+# Variáveis de ambiente — nunca versionar segredo.
+# O que vai para o repo é só o .env.example, com placeholder.
+.env
+.env.*
+!.env.example
+
+# Banco / Drizzle
+# As migrações EM SI devem ser versionadas (drizzle/ ou drizzle/migrations/).
+# Aqui só ignoramos artefato local e dump.
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.sql.gz
+
+# Supabase CLI (stack local em Docker)
+supabase/.branches/
+supabase/.temp/
+supabase/.env
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testes e cobertura
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+/blob-report/
+.playwright/
+
+# Vercel
+.vercel
+
+# Sistema operacional
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+desktop.ini
+
+# Editor
+.idea/
+*.swp
+*.swo
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Ferramentas de IA — configuração local, não compartilhada
+.claude/settings.local.json
+.gstack/
