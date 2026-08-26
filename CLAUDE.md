@@ -76,7 +76,7 @@ Se a tarefa depende de uma dessas, faça tudo o que não depende e pergunte no p
 
 Trabalho longo aqui é fatiado em **frentes** paralelas, e cada uma volta do ponto onde parou via checkpoint do gstack (`/context-save` → `/context-restore`).
 
-**A ferramenta não vive neste repo.** Ela é um plugin externo, mantido em [pablocarvalho0/claude-plugins](https://github.com/pablocarvalho0/claude-plugins) — instalado uma vez por máquina e usado em qualquer projeto. Aqui dentro só existe a configuração local, `.claude/frentes.conf`, que fica fora do git por guardar caminho absoluto da máquina. Se a skill `/frentes` não aparecer na sessão, o plugin não está instalado — o README **daquele** repo traz as duas formas de instalar (este repo não tem README).
+**A ferramenta não vive neste repo.** Ela é um plugin externo, mantido em [pablocarvalho0/claude-plugins](https://github.com/pablocarvalho0/claude-plugins) — instalado uma vez por máquina e usado em qualquer projeto. Aqui dentro só existe a configuração local, `.claude/frentes.conf`, que fica fora do git por guardar caminho absoluto da máquina. Se a skill `/frentes` não aparecer na sessão, o plugin não está instalado — o README **daquele** repo traz as duas formas de instalar (o README daqui, que entra com a v0, é do produto — não da ferramenta).
 
 O ciclo: ao fechar uma sessão, rodar `/context-save`. Para configurar o que retomar, chamar a skill `/frentes` — ela lê os checkpoints, escreve o `.claude/frentes.conf` e regenera o `.vscode/tasks.json`. No dia seguinte, `Ctrl+Shift+B` no VS Code abre um terminal por frente, cada um com o contexto já restaurado. Fora do VS Code, o script aceita `--todas` (um terminal por frente) e `--imprimir` (só mostra os comandos).
 
