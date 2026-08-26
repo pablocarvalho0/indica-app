@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+/* Tokens em duas camadas: `@theme inline` cria as utilities do Tailwind
+   apontando para variaveis CSS, e as variaveis trocam de valor no modo
+   escuro. Uma definicao de cor, dois temas. */
+@theme inline {
+  --color-fundo: var(--fundo);
+  --color-superficie: var(--superficie);
+  --color-tinta: var(--tinta);
+  --color-suave: var(--suave);
+  --color-borda: var(--borda);
+  --color-destaque: var(--destaque);
+  --color-sobre-destaque: var(--sobre-destaque);
+  --color-destaque-fraco: var(--destaque-fraco);
+  --color-atencao: var(--atencao);
+  --color-atencao-fraco: var(--atencao-fraco);
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+}
+
+:root {
+  --fundo: #faf8f5;
+  --superficie: #ffffff;
+  --tinta: #17150f;
+  --suave: #6f6959;
+  --borda: #e7e1d5;
+  --destaque: #a93a12;
+  /* cor do texto EM CIMA do destaque. No claro o destaque e escuro e pede
+     branco; no escuro ele e um laranja claro e branco em cima dele fica com
+     contraste de 2.4:1. Token proprio resolve nos dois temas. */
+  --sobre-destaque: #ffffff;
+  --destaque-fraco: #fbeee7;
+  --atencao: #8a6100;
+  --atencao-fraco: #fbf3dd;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fundo: #100f0d;
+    --superficie: #1a1815;
+    --tinta: #f3efe6;
+    --suave: #9d9484;
+    --borda: #2d2a24;
+    --destaque: #f3814f;
+    --sobre-destaque: #1c0f07;
+    --destaque-fraco: #2a1710;
+    --atencao: #e0b445;
+    --atencao-fraco: #2a2210;
+  }
+}
+
+body {
+  background: var(--fundo);
+  color: var(--tinta);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Foco visivel sempre. Metade da audiencia abre isso no celular, mas a outra
+   metade navega de teclado no notebook durante a aula. */
+:focus-visible {
+  outline: 2px solid var(--destaque);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@layer components {
+  /* Pastilha de filtro. Alvo de toque generoso: o criterio de pronto do doc
+     e "um amigo filtra por area e clica no link, no celular". */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-borda
+           bg-superficie px-3.5 py-2 text-sm text-tinta transition-colors
+           hover:border-destaque hover:text-destaque;
+  }
+  .chip-ativo {
+    @apply border-transparent bg-tinta text-fundo hover:border-transparent
+           hover:bg-tinta hover:text-fundo;
+  }
+  .chip-contagem {
+    @apply text-xs tabular-nums opacity-55;
+  }
+
+  .rotulo {
+    @apply mb-1.5 block text-sm font-medium text-tinta;
+  }
+  .campo {
+    @apply w-full rounded-lg border border-borda bg-superficie px-3 py-2.5
+           text-base text-tinta placeholder:text-suave/70
+           focus:border-destaque focus:outline-none;
+  }
+  .dica {
+    @apply mt-1 text-xs text-suave;
+  }
+
+  .botao {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg
+           bg-destaque px-4 py-2.5 text-sm font-medium text-sobre-destaque
+           transition-opacity hover:opacity-90 disabled:opacity-50;
+  }
+  .botao-fantasma {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border
+           border-borda bg-superficie px-4 py-2.5 text-sm font-medium
+           text-tinta transition-colors hover:border-tinta;
+  }
+}
