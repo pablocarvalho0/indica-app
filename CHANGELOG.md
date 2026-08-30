@@ -25,6 +25,9 @@ dia do release o contexto da mudança já evaporou.
 
 ### Adicionado
 
+- `LICENSE`: MIT, mesmo texto usado nos outros repos. O `docs/idea.md` promete
+  projeto aberto desde a v0, mas repositório público sem arquivo de licença é
+  fechado por padrão — a promessa não valia nada sem isso.
 - `README.md`: porta de entrada do repositório — o que é o Indica, o teste do
   canal que decide o que entra na lista, a stack decidida e o mapa dos
   documentos. Não afirma o que existe de código: aponta para este arquivo, que

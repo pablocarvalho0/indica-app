@@ -108,6 +108,7 @@ nome, telefone, e-mail, currículo, print de conversa. Dado de exemplo tem que s
 obviamente fictício. Contato de dono de vaga só é publicado com autorização
 explícita dele; sem ela, a candidatura vai como *via ponte*.
 
----
+## Licença
 
-O projeto é aberto desde a v0 e nunca vai cobrar de quem se candidata.
+[MIT](LICENSE). O projeto é aberto desde a v0 e nunca vai cobrar de quem se
+candidata.
