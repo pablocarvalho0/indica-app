@@ -25,6 +25,10 @@ dia do release o contexto da mudança já evaporou.
 
 ### Adicionado
 
+- `README.md`: porta de entrada do repositório — o que é o Indica, o teste do
+  canal que decide o que entra na lista, a stack decidida e o mapa dos
+  documentos. Não afirma o que existe de código: aponta para este arquivo, que
+  é quem tem esse trabalho.
 - `CHANGELOG.md`: registro de mudanças por release e do estado do projeto.
 - `.github/PULL_REQUEST_TEMPLATE.md`: checklist curto de documentação no PR.
 - `docs/spec-v0.md`: spec técnica da v0, antes fora do controle de versão.
@@ -43,6 +47,9 @@ dia do release o contexto da mudança já evaporou.
 
 ### Alterado
 
+- `CLAUDE.md`: a nota da seção de frentes que dizia "este repo não tem README"
+  deixou de ser verdade e virou "o README daquele repo, não o deste" — a
+  desambiguação que ela existia para fazer continua de pé.
 - `CLAUDE.md`: a seção de estado do repositório deixou de afirmar o que existe
   e passou a instruir como verificar. Afirmação de estado apodrece no primeiro
   commit de código, e num arquivo que agentes leem como autoridade isso é pior
